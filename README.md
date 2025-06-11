@@ -1,59 +1,29 @@
-# NgSubmitTest
+# Why use ngSubmit over button (click) event
+ngSubmit is part of the angular life cicle, bypassing its use via a button with the "(click)" event listener, holds us back on some nifty features.
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.1.
+### It:
+- Ensures that the form doesn't submit when the handler code throws and causes an actual http post request".
+- Triggers when clicking the Enter key while being focused on any input element within the form out of the box
+- Marks the instance of the appropiate FormGroupDirective as submitted when the event has been triggered
 
-## Development server
+## Flow
+### 1. The html submit event fires
+  The onSubmit event fires in the \<form\> when:
+    - the user clicks a button inside the form
+    - the user clicks an input tag with type="buton" inside the form
+    - the user presses Enter while editing a field (e.g., \<input type="text"\>) in a form,
+    - a script calls the form.requestSubmit() method
 
-To start a local development server, run:
+  [From Mozilla](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/submit_event)
 
-```bash
-ng serve
-```
+### 2. The ngFormDirective handles the event
+  [The ngFormDirective is host binded to the form event](https://github.com/angular/angular/blob/4.3.4/packages/forms/src/directives/ng_form.ts#L62)
+  It catches the onSubmit event [prevents default behaviour by returning false](https://github.com/angular/angular/blob/4.3.4/packages/forms/src/directives/ng_form.ts#L140-L144) and emits a custom ngSubmit event.
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### 3. The AbstractControl class updates
+[AbstractControl](https://angular.dev/api/forms/AbstractControl) is the base class for FormControl, FormGroup, and FormArray.
+It watches for the lifecicle hook FormHook's change, blur and **submit** updates.
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
-
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+## Source
+[Why it’s crucial to use a button of submit type](https://medium.com/javascript-everyday/form-submission-why-its-crucial-to-use-a-button-of-submit-type-b43511d92671) by
+Wojciech Trawiński
