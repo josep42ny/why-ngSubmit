@@ -1,23 +1,31 @@
 <main>
   <section>
-    <h2>Primer Formulario</h2>
     <form [formGroup]="nameForm" (ngSubmit)="submit01()">
-      <label for="colorName">Nombre</label>
-      <input id="name" type="text" formControlName="name">
-      <label for="colorName">Apellidos</label>
-      <input id="surname" type="text" formControlName="surname">
-      <sub>Este boton usa button</sub>
-      <button>Enviar</button>
+      <fieldset>
+        <legend>
+          <h6>Primer Formulario</h6>
+        </legend>
+        <label hidden for="colorName">Nombre</label>
+        <input id="name" type="text" formControlName="name" placeholder="Nombre">
+        <label hidden for="colorName">Apellidos</label>
+        <input id="surname" type="text" formControlName="surname" placeholder="Apellidos">
+        <sub>Este boton usa button</sub><br>
+        <button id="sub01">Enviar</button>
+      </fieldset>
     </form>
-
-    <h2>Segundo Formulario</h2>
+    <br>
     <form [formGroup]="colorForm" (ngSubmit)="submit02()">
-      <label for="colorName">Nombre del color</label>
-      <input id="colorName" type="text" formControlName="colorName">
-      <label for="colorHex" hidden>Color</label>
-      <input id="colorHex" type="color" formControlName="hex">
-      <sub>Este boton usa type="submit"</sub>
-      <input type="submit" value="Enviar">
+      <fieldset>
+        <legend>
+          <h6>Segundo Formulario</h6>
+        </legend>
+        <label hidden for="colorName">Nombre del color</label>
+        <input id="colorName" type="text" formControlName="colorName" placeholder="Nombre del color">
+        <label hidden for="colorHex">Color</label>
+        <input id="colorHex" type="color" formControlName="hex">
+        <sub>Este boton usa type="submit"</sub>
+        <input type="submit" value="Enviar">
+      </fieldset>
     </form>
   </section>
 </main>
